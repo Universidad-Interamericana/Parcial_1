@@ -49,6 +49,15 @@ int main() {
         cout << " 3- Salir del menu \n";
         cin >> opt;
 
+  //Función abrir ticket.
+  int AbrirTicket(int lnNumTicket){
+        //Permite imprimir tildes, ñ o caracteres especiales.
+        setlocale(LC_ALL,"");
+        system("cls");
+      
+        //Captura y lectura de datos.
+        cout<< "Bienvenido al sistema de tickets, por favor, ingrese los datos solicitados" << endl << endl;
+        cout << " Su número de ticket es: " << lnNumTicket + 1 << endl
         if (opt == 1) {
             cout << "\n Introduzca su nombre ";
             cin >> name;
