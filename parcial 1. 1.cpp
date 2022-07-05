@@ -40,7 +40,7 @@ int main() {
     cout << "\n Ingrese nueva contrasena: ";
     cin >> cont;
     cout << "Contrasena actualizada satisfactoriamente! \n";
-
+    cout<<"\n"<<endl;
     while (true) {
         cout << "Menu Estados de tickets: \n";
         cout << "Elija cual de las 3 opciones desea realizar: \n";
