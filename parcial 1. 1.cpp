@@ -1,88 +1,148 @@
 #include <iostream>
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include <vector>
+#include <list>
+#include <ctime>
+
+
 
 using namespace std;
 
-int main() {
 
-    time_t tiempoahora;
-    time( & tiempoahora);
-    string mensaje1 = "Ha iniciado sesion correctamente \n";
-    string mensaje2 = "Usuario o contrasena incorrecta";
-    string usuario = "";
-    string pass = "XYZ.2022";
-    string cont;
-    int opt;
-    string name = "";
-    string lastname = "";
-    int id;
-    string ticket = "";
-    string mail = "@hotmail.com";
-    char carr[60];
 
-    cout << "Introduzca su nombre:";
-    cin >> usuario;
-    cout << "Bienvenido al Portal de la XYZ! \n";
-    cout << "Fecha y hora de inicio de sesion: ";
-    printf("%s\n", ctime( & tiempoahora));
-    "\n";
-    cout << "Su usuario es: " + usuario;
-    "\n";
-    cout << "\nSu constrasena es: ";
-    srand(time(NULL));
-    printf("%d", rand());
-    printf("%d", RAND_MAX);
-    "\n";
+string usuario = "";
+string cont = "";
+list <string> name;
+list <string> lastname;
+vector <int> id;
+int id_contador = 0;
+list <string> mail;
+list <string> carr;
 
-    cout << "\n Ingrese nueva contrasena: ";
-    cin >> cont;
-    cout << "Contrasena actualizada satisfactoriamente! \n";
-    cout<<"\n"<<endl;
-    while (true) {
-        cout << "Menu Estados de tickets: \n";
-        cout << "Elija cual de las 3 opciones desea realizar: \n";
-        cout << " 1- Subir un nuevo ticket \n";
-        cout << " 2- Ver tickets existentes \n";
-        cout << " 3- Salir del menu \n";
-        cin >> opt;
+int pausa;
 
-  //Función abrir ticket.
-  int AbrirTicket(int lnNumTicket){
-        //Permite imprimir tildes, ñ o caracteres especiales.
-        setlocale(LC_ALL,"");
-        system("cls");
-      
-        //Captura y lectura de datos.
-        cout<< "Bienvenido al sistema de tickets, por favor, ingrese los datos solicitados" << endl << endl;
-        cout << " Su número de ticket es: " << lnNumTicket + 1 << endl
-        if (opt == 1) {
-            cout << "\n Introduzca su nombre ";
-            cin >> name;
-            cout << "\n Introduzca su apellido: ";
-            cin >> lastname;
-            cout << "\n Introduzca su ID: ";
-            cin >> id;
-            cout << "\n Introduzca su correo: ";
-            cin >> mail;
-            cout << "\n Introduzca la carrera que estudia: ";
-            cin >> carr;
-            
-            //Falta agregar el espacio para que el usuario ingrese la solucitud del ticket
-            //Falta generar codigo del ticket
-        } else if (opt == 2) {
-            cout << "Tickets activos: \n";
-        } else if (opt == 3) {
-            cout << "Fecha y hora de salida: ";
-            printf("%s\n", ctime( & tiempoahora)); //me aparece la misma hora y fecha del inicio
-            break;
-        } else {
-            cout << "Error: opcion invalida \n";
-            break;
-        }
-    }
+time_t tmNow = time(0);
+char* dt = ctime(&tmNow);
+const char alphanum[] = "0123456789!@#$%^&*abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+int string_length = sizeof(alphanum) - 1;
+void ImprimirMenuBienvenida();
+void MenuEstadoTickets();
+void IngresarNuevoTicket();
+void MostrarTicket();
 
-    return 0;
+void ImprimirMenuBienvenida() {
+
+	cout << "Introduzca su nombre: ";
+	cin >> usuario;
+	cout << "Bienvenido al Portal de la XYZ! \n";
+	cout << "Fecha y hora de inicio de sesion: ";
+	cout << dt;
+	cout << "\nSu usuario es: " + usuario;
+	cout << "\nSu contrasena es: ";
+	int n = 10;
+	for (int i = 0; i < n; i++)
+		cout << alphanum[rand() % string_length];
+	"\n";
+	cout << "\n Ingrese nueva contrasena: ";
+	cin >> cont;
+	cout << "Contrasena actualizada satisfactoriamente! \n";
+	system("pause");
+	system("CLS");
+
+
+}
+
+void MenuEstadoTickets() {
+	cout << "Menu Estados de tickets: \n";
+	cout << "Elija cual de las 3 opciones desea realizar: \n";
+	cout << " 1- Subir un nuevo ticket \n";
+	cout << " 2- Ver tickets existentes \n";
+	cout << " 3- Salir del menu \n";
+}
+
+void IngresarNuevoTicket() {
+	//variables locales
+	string name_f ="";
+	string lastname_f = "";
+	string mail_f = "";
+	string carr_f = "";
+
+	id_contador = id_contador + 1;
+	id.push_back(id_contador);
+	cout << "\n Introduzca su nombre ";
+	cin >> name_f;
+	name.push_back(name_f);
+	cout << "\n Introduzca su apellido: ";
+	cin >> lastname_f;
+	lastname.push_back(lastname_f);
+	cout << "\n Introduzca su correo: ";
+	cin >> mail_f;
+	mail.push_back(mail_f);
+	cout << "\n Introduzca la carrera que estudia: ";
+	cin >> carr_f;
+	carr.push_back(carr_f);
+
+}
+
+void MostrarTicket() {
+	for (size_t i = 0; i< id.size(); i++) {
+		cout << "---------------------";
+		cout << "ID:\t";
+		cout << id.at(i) << " " << endl;
+	}
+	for (string item : name) {
+		cout << "---------------------";
+		cout << "Nombre:\t";
+		cout << item <<" "<< endl;
+	}
+	for (string item : lastname) {
+		cout << "---------------------";
+		cout << "Apellido:\t";
+		cout << item << " " << endl;
+	}
+	for (string item : mail) {
+		cout << "---------------------";
+		cout << "Correo electronico:\t";
+		cout << item << "@hotmail.com" << endl;
+	}
+	for (string item : carr) {
+		cout << "---------------------";
+		cout << "Carrera:\t";
+		cout << item << " " << endl;
+	}
+	
+
+}
+
+int main()
+{
+	
+
+	int opcion = 0;
+	ImprimirMenuBienvenida();
+	do {
+		MenuEstadoTickets();
+		cin >> opcion;
+		if(opcion == 1 ){
+			system("CLS");
+			IngresarNuevoTicket();
+
+
+		}
+		else if (opcion == 2) {
+			system("CLS");
+			MostrarTicket();
+		}
+		else if (opcion == 3) {
+			tmNow = time(0);
+			dt = ctime(&tmNow);
+			cout << "Fecha y hora de salida: ";
+			cout << dt;
+		}
+		else
+		{
+			system("CLS");
+			cout << "Opcion invalida, porfavor elegir numero entre 1 - 3" << endl << endl;
+		}
+	} while (!(opcion == 3));
+	
 }
